@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class rpc {
+          }
+          class agent {
+          }
+          class broker {
+          }
+          class decorators {
+          }
+          class exceptions {
+          }
+          class target {
+          }
+          rpc --> agent
+          rpc --> decorators
+          rpc --> target
+          agent --> broker
+          decorators --> rpc
+          decorators --> target
+          target --> broker
+  
+       </div>
+  </body>
+</html>
