@@ -49,10 +49,8 @@ class Agent:
     def _request_worker(self):
         print("waiting requests")
         while True:
-            item = self._broker.recv()
-            print(f"processing request: {item}")
+            payload = self._broker.recv()
 
-            payload = json.loads(item)
             # TODO: add support to pydantic
             event = payload["event"]
             call_id = payload["call_id"]
@@ -66,9 +64,8 @@ class Agent:
             (instance, handler) = self._handlers[func_name]
             result = handler.exec(instance, **kwargs)
 
-            result_message = json.dumps(
-                {"call_id": call_id, "status": "done", "result": result}
-            )
+            result_message = {"call_id": call_id, "status": "done", "result": result}
+
             self._broker.send(result_message)
             print(f"result: {result_message}")
 

@@ -5,19 +5,24 @@ from gc_sdk.rpc import AsyncBroker, Broker
 
 @pytest.fixture
 def test_msg():
-    return "just a test"
+    return {"message": "just a test"}
 
 
-def test_broker_send_buffer(test_msg):
+@pytest.fixture
+def encoded_msg():
+    return '{"message": "just a test"}'
+
+
+def test_broker_send_buffer(test_msg, encoded_msg):
     broker = Broker()
     broker.send(test_msg)
     item = broker.send_buffer.get()
-    assert item == test_msg
+    assert item == encoded_msg
 
 
-def test_broker_receive_buffer(test_msg):
+def test_broker_receive_buffer(test_msg, encoded_msg):
     broker = Broker()
-    broker.recv_buffer.put(test_msg)
+    broker.recv_buffer.put(encoded_msg)
     item = broker.recv()
     assert item == test_msg
 

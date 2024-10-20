@@ -1,9 +1,10 @@
 import asyncio
 
-from gc_sdk import rpc
 import uvicorn
 from apps import FileApp
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+
+from gc_sdk import rpc
 
 
 class NodeManager:

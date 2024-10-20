@@ -1,8 +1,9 @@
 import pathlib
 import socket
 
-from gc_sdk import rpc
 from apps import FileApp
+
+from gc_sdk import rpc
 
 file_app = FileApp(workdir=pathlib.Path("./"))
 

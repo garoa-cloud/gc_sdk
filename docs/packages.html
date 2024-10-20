@@ -4,6 +4,8 @@
       <div class="mermaid">
     
         classDiagram
+          class gc_sdk {
+          }
           class rpc {
           }
           class agent {
@@ -14,15 +16,20 @@
           }
           class exceptions {
           }
+          class parsers {
+          }
+          class parsers_test {
+          }
           class target {
           }
           rpc --> agent
+          rpc --> broker
           rpc --> decorators
           rpc --> target
-          agent --> broker
-          decorators --> rpc
-          decorators --> target
+          broker --> parsers
+          target --> rpc
           target --> broker
+          target --> exceptions
   
        </div>
   </body>

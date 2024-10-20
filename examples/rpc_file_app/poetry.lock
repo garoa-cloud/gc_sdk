@@ -160,7 +160,7 @@ fastapi = {version = "^0.115.0", extras = ["standard"]}
 
 [package.source]
 type = "directory"
-url = ".."
+url = "../.."
 
 [[package]]
 name = "h11"
@@ -986,4 +986,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "3.12.1"
-content-hash = "ff4901c132f8f808d45811602455f60b6dd942d11a39205e9b1c4b27d4725757"
+content-hash = "e914b7c5401449b1c620c13400e93038400d6473648ae7cfc072ba08e9c75660"

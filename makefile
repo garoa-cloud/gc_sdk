@@ -10,7 +10,7 @@ test-watch:
 	poetry run ptw .
 
 docs:
-	pyreverse -ASmy -o html -d ./docs/ rpc
+	pyreverse -ASmy -o html -d ./docs/ gc_sdk
 
 docs-server:
 	mkdocs serve

@@ -12,15 +12,16 @@
           }
           class AsyncBroker {
             recv()
-            send(item)
+            send(data)
           }
           class Broker {
             recv_buffer : Queue
             send_buffer : Queue
             link()
             recv()
-            send(item)
+            send(data)
             sync()
+            use()
           }
           class WebsocketBroker {
             uri : str
@@ -33,6 +34,26 @@
           }
           class TimeoutError {
           }
+          class Encryption {
+            decode(data: dict | str)
+            encode(data: dict | str)
+          }
+          class JSON {
+            decode(data: dict | str)
+            encode(data: dict | str)
+          }
+          class Logging {
+            decode(data)
+            encode(data)
+          }
+          class ParserInterface {
+            decode(data)*
+            encode(data)*
+          }
+          class Signature {
+            decode(data: dict | str)
+            encode(data: dict | str)
+          }
           class Target {
             agent_name
             dispatch_call(func_name: str, kwargs: dict) str
@@ -40,8 +61,11 @@
           }
           AsyncBroker --|> Broker
           WebsocketBroker --|> Broker
+          Encryption --|> ParserInterface
+          JSON --|> ParserInterface
+          Logging --|> ParserInterface
+          Signature --|> ParserInterface
           Broker --* Target : _broker
-          Broker --o Agent : _broker
   
        </div>
   </body>

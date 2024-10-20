@@ -2,29 +2,34 @@ import json
 import uuid
 from typing import Optional
 
+from gc_sdk.rpc import exceptions
 from gc_sdk.rpc.broker import Broker
 
 
 class Target:
-    def __init__(self, *, agent_name: str, broker: Optional[Broker] = None):
+    def __init__(
+        self,
+        *,
+        agent_name: str,
+        broker: Optional[Broker] = None,
+    ):
         self.agent_name = agent_name
         if broker is None:
             self._broker = Broker()
         else:
             self._broker = broker
+
         self._call_stack = dict()
 
     def dispatch_call(self, func_name: str, kwargs: dict) -> str:
         call_id = str(uuid.uuid4())
-        job = json.dumps(
-            {
-                "event": "call",
-                "call_id": call_id,
-                "target": self.agent_name,
-                "func_name": func_name,
-                "kwargs": kwargs,
-            }
-        )
+        job = {
+            "event": "call",
+            "call_id": call_id,
+            "target": self.agent_name,
+            "func_name": func_name,
+            "kwargs": kwargs,
+        }
         self._broker.send(job)
         self._call_stack[call_id] = None
 
@@ -44,7 +49,7 @@ class Target:
 
         def sync():
             while True:
-                item = json.loads(self._broker.recv())
+                item = self._broker.recv()
                 call_id = item["call_id"]
                 self._call_stack[call_id] = item
 
